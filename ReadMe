@@ -1,0 +1,17 @@
+
+
+使用公式W=TF+log(N/DF)计算权重
+N:所有微博条数 在计算TF的时候，每次对一条微博进行操作，都输出一个 context.write(count,1)
+TF：每个微博账号的每条微博下面，出现打车、滴滴，出租车等关键词的次数，都输出一个context.write(微博账号ID,1),注意一条微博里面有好几个关键词，那么就把这么多的关键词全部加进去 比如 199921:23 1223492:12
+DF：所有出现过关键词的账号数量，我们通过对TF输出结果进行wordcount进行计算 
+
+CalcTFAndN:计算TF与N,并且自定义了comparator,使得N在part-r-00001.TF在part-r-00000
+CalcDF:直接去计算TF的行数（注意TF=0的不要算进去，本程序直接在CalcTFAndN中的Mpaaer添加了判断）
+
+TODO:
+调研权重公式
+采用distributacacha进行分发log(N/DF)
+爬虫又被和谐了
+
+通过JobControl设置执行顺序：CalcTFAndN->CalcDF->CalcAll
+
